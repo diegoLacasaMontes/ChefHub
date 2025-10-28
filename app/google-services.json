@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "556655911937",
+    "project_id": "chefhub-f0491",
+    "storage_bucket": "chefhub-f0491.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:556655911937:android:8b52dccf60c3819afccc00",
+        "android_client_info": {
+          "package_name": "com.diego.chefhub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASuGrfnZiuOhvpaix1vVCEQIyGH-u6rAE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
