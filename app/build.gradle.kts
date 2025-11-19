@@ -66,6 +66,9 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
 
+    // Coil
+    implementation(libs.coil)
+
     // Navigation
     implementation(libs.androidx.navigation.compose)
 }

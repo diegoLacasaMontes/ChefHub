@@ -5,14 +5,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.diego.chefhub.presentation_tutorial.home.HomeScreen2
-import com.diego.chefhub.presentation_tutorial.initial.InitialScreen
-import com.diego.chefhub.presentation_tutorial.login.LogInScreen
-import com.diego.chefhub.presentation_tutorial.signup.SignUpScreen
-import com.diego.chefhub.screens.HomeScreen
-import com.diego.chefhub.screens.LoginScreen
-import com.diego.chefhub.screens.PasswordRecoveryScreen
-import com.diego.chefhub.screens.RegisterScreen
+import com.diego.chefhub.presentation.initial.InitialScreen
+import com.diego.chefhub.presentation.login.LogInScreen
+import com.diego.chefhub.presentation_tutorial.home.HomeScreenViejo
+import com.diego.chefhub.presentation.signup.SignUpScreen
 import com.diego.chefhub.ui.AppViewModel
 import com.google.firebase.auth.FirebaseAuth
 
@@ -26,25 +22,42 @@ fun AppNavigation() {
     val appViewModel: AppViewModel = viewModel()
 
     val startDestination = if (currentUser != null) {
-        AppScreens.HomeScreen2.route
+        AppScreens.HomeScreenViejo.route
     } else {
         AppScreens.InitialScreen.route
     }
 
     // COMENTARIO.
     NavHost(navController = navController, startDestination = startDestination) {
-        composable(route = AppScreens.LoginScreen.route) { LoginScreen(navController, appViewModel) }
-        composable(route = AppScreens.RegisterScreen.route) { RegisterScreen(navController, appViewModel) }
-        composable(route = AppScreens.PasswordRecoveryScreen.route) { PasswordRecoveryScreen(navController, appViewModel) }
-        composable(route = AppScreens.HomeScreen.route) { HomeScreen(navController, appViewModel, auth) }
+        composable(route = AppScreens.HomeScreenViejo.route) {
+            HomeScreenViejo(
+                auth,
+                navigateToInitial = { navController.navigate(AppScreens.InitialScreen.route) }
+            )
+        }
 
 
-        composable(route = AppScreens.InitialScreen.route) { InitialScreen(
-            navigateToLogIn = { navController.navigate(AppScreens.LogInScreen2.route) },
-            navigateToSignUp = { navController.navigate(AppScreens.SignUpScreen.route) }
-        ) }
-        composable(route = AppScreens.LogInScreen2.route) { LogInScreen(auth) }
-        composable(route = AppScreens.SignUpScreen.route) { SignUpScreen(auth) }
-        composable(route = AppScreens.HomeScreen2.route) { HomeScreen2() }
+        composable(route = AppScreens.InitialScreen.route) {
+            InitialScreen(
+                navigateToLogIn = { navController.navigate(AppScreens.LogInScreen.route) },
+                navigateToSignUp = { navController.navigate(AppScreens.SignUpScreen.route) }
+            )
+        }
+        composable(route = AppScreens.LogInScreen.route) {
+            LogInScreen(
+                auth,
+                navigateBack = { navController.navigate(AppScreens.InitialScreen.route) },
+                navigateToSignUp = { navController.navigate(AppScreens.SignUpScreen.route) },
+                navigateToHome = { navController.navigate(AppScreens.HomeScreenViejo.route) }
+            )
+        }
+        composable(route = AppScreens.SignUpScreen.route) {
+            SignUpScreen(
+                auth,
+                navigateToHome = { navController.navigate(AppScreens.HomeScreenViejo.route) },
+                navigateToLogIn = { navController.navigate(AppScreens.LogInScreen.route) },
+                navigateBack = { navController.navigate(AppScreens.InitialScreen.route) }
+                )
+        }
     }
 }

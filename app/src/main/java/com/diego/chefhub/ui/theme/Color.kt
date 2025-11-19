@@ -14,6 +14,7 @@ val White = Color(0xFFFFFFFF)
 val Gray = Color(0xFF393939)
 val Black = Color(0xFF121212)
 val Green = Color(0xFF49dd63)
+val Blue = Color(0xFF0056B3)
 val BackgroundButton = Color(0xFF111111)
 val ShapeButton = Color(0xFF3e3e3e)
 

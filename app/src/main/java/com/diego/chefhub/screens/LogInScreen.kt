@@ -144,7 +144,6 @@ private fun LoginContent(navController: NavController, appViewModel: AppViewMode
                         else -> {
                             saveCredentials(context, appUiState.email, appUiState.paswword)
                             showMessage(context, "Inicio de sesión exitoso.")
-                            navController.navigate(AppScreens.HomeScreen.route)
                         }
                     }
 
