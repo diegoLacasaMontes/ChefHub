@@ -5,6 +5,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.diego.chefhub.presentation.account.AccountScreen
+import com.diego.chefhub.presentation.home.HomeScreen
 import com.diego.chefhub.presentation.initial.InitialScreen
 import com.diego.chefhub.presentation.login.LogInScreen
 import com.diego.chefhub.presentation_tutorial.home.HomeScreenViejo
@@ -22,21 +24,13 @@ fun AppNavigation() {
     val appViewModel: AppViewModel = viewModel()
 
     val startDestination = if (currentUser != null) {
-        AppScreens.HomeScreenViejo.route
+        AppScreens.HomeScreen.route
     } else {
         AppScreens.InitialScreen.route
     }
 
     // COMENTARIO.
     NavHost(navController = navController, startDestination = startDestination) {
-        composable(route = AppScreens.HomeScreenViejo.route) {
-            HomeScreenViejo(
-                auth,
-                navigateToInitial = { navController.navigate(AppScreens.InitialScreen.route) }
-            )
-        }
-
-
         composable(route = AppScreens.InitialScreen.route) {
             InitialScreen(
                 navigateToLogIn = { navController.navigate(AppScreens.LogInScreen.route) },
@@ -48,16 +42,34 @@ fun AppNavigation() {
                 auth,
                 navigateBack = { navController.navigate(AppScreens.InitialScreen.route) },
                 navigateToSignUp = { navController.navigate(AppScreens.SignUpScreen.route) },
-                navigateToHome = { navController.navigate(AppScreens.HomeScreenViejo.route) }
+                navigateToHome = { navController.navigate(AppScreens.HomeScreen.route) }
             )
         }
         composable(route = AppScreens.SignUpScreen.route) {
             SignUpScreen(
                 auth,
-                navigateToHome = { navController.navigate(AppScreens.HomeScreenViejo.route) },
+                navigateToHome = { navController.navigate(AppScreens.HomeScreen.route) },
                 navigateToLogIn = { navController.navigate(AppScreens.LogInScreen.route) },
                 navigateBack = { navController.navigate(AppScreens.InitialScreen.route) }
                 )
+        }
+        composable(route = AppScreens.HomeScreen.route) {
+            HomeScreen(
+                navigateToSearch = {},
+                navigateToCreate = {},
+                navigateToAccount = { navController.navigate(AppScreens.AccountScreen.route) },
+                navigateToRecipe =  {},
+            )
+        }
+        composable(route = AppScreens.AccountScreen.route) {
+            AccountScreen(
+                navigateToHome = { navController.navigate(AppScreens.HomeScreen.route) },
+                navigateToSearch = {},
+                navigateToCreate = {},
+                navigateToRecipe =  {},
+                auth,
+                navigateToInitial = {navController.navigate(AppScreens.InitialScreen.route)},
+            )
         }
     }
 }

@@ -43,6 +43,7 @@ fun LogInScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
+                .background(Black)
         ) {
             LogInContent(auth, navigateToHome, navigateToSignUp)
         }
@@ -60,7 +61,6 @@ fun LogInContent(auth: FirebaseAuth, navigateToHome: () -> Unit, navigateToSignU
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Black)
             .padding(horizontal = 32.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
