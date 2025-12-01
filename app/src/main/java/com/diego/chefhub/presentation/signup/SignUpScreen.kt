@@ -16,9 +16,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -30,6 +32,9 @@ import com.diego.chefhub.scaffold.MyBackTopAppBar
 import com.diego.chefhub.ui.theme.Black
 import com.diego.chefhub.ui.theme.White
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 
 @Composable
 fun SignUpScreen(
@@ -53,12 +58,19 @@ fun SignUpScreen(
 }
 
 @Composable
-fun SignUpContent(auth: FirebaseAuth, navigateToHome: () -> Unit, navigateToLogIn: () -> Unit) {
+private fun SignUpContent(
+    auth: FirebaseAuth,
+    navigateToHome: () -> Unit,
+    navigateToLogIn: () -> Unit
+) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var enableSignUp by remember { mutableStateOf(false) }
+
     val emailRegex = Regex("^[^@]+@[^@]+\\.[^@]+$")
     val passwordRegex = Regex("^(?=.*[0-9])(?=.*[!@#\$%^&*(),.?\":{}|<>]).{10,}$")
+
+    var errorMessage by rememberSaveable { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -66,39 +78,86 @@ fun SignUpContent(auth: FirebaseAuth, navigateToHome: () -> Unit, navigateToLogI
             .padding(horizontal = 32.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Email", color = White, fontWeight = FontWeight.Bold, fontSize = 40.sp)
+        // EMAIL
+        Text(text = "Email", color = White, fontWeight = FontWeight.Bold, fontSize = 40.sp)
+
         CustomInputField(
             value = email,
             onValueChange = { email = it },
             onValueChangeExtra = {
                 enableSignUp = emailRegex.matches(it) && passwordRegex.matches(password)
+                errorMessage = ""
             }
         )
-        Spacer(Modifier.height(8.dp)) // ¿Hacer el texto rojo cuando el email/contraseña no sean validos?
-        Text("You will have to confirm this address", color = White, modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Start)
+
+        Spacer(Modifier.height(8.dp))
+
+        Text(
+            text = "You will have to confirm this address",
+            color = White,
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Start
+        )
 
         Spacer(Modifier.height(48.dp))
-        Text("Password", color = White, fontWeight = FontWeight.Bold, fontSize = 40.sp)
+
+        // PASSWORD
+        Text(text = "Password", color = White, fontWeight = FontWeight.Bold, fontSize = 40.sp)
+
         CustomInputField(
             value = password,
             onValueChange = { password = it },
             onValueChangeExtra = {
                 enableSignUp = emailRegex.matches(email) && passwordRegex.matches(it)
+                errorMessage = ""
             },
             password = true
         )
+
         Spacer(Modifier.height(8.dp))
-        Text("Use at least 10 characters", color = White, modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Start)
+
+        Text(
+            "Use at least 10 characters",
+            color = White,
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Start
+        )
 
         Spacer(Modifier.weight(1f))
+
+        // ERROR MESSAGE
+        Text(
+            text = errorMessage,
+            color = if (errorMessage.isEmpty()) Color.Transparent else Color.Red,
+            fontWeight = FontWeight.Bold
+        )
+
+        Spacer(Modifier.height(8.dp))
+
+        // BUTTON SIGN UP
         CustomButton(
             onClick = {
+                if (!emailRegex.matches(input = email)) {
+                    errorMessage = "Invalid email format"
+                    return@CustomButton
+                }
+
+                if (!passwordRegex.matches(input = password)) {
+                    errorMessage = "Password must contain a number and a special character"
+                    return@CustomButton
+                }
+
                 auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         navigateToHome()
-                        Log.i("diego", "SIGNUP OK")
                     } else {
-                        Log.i("diego", "SIGNUP KO")
+                        val exception = task.exception
+                        errorMessage = when (exception) {
+                            is FirebaseAuthWeakPasswordException -> "Password is too weak"
+                            is FirebaseAuthInvalidCredentialsException -> "Invalid email"
+                            is FirebaseAuthUserCollisionException -> "Email already in use"
+                            else -> exception?.message ?: "Unknown error"
+                        }
                     }
                 }
             },
@@ -107,7 +166,10 @@ fun SignUpContent(auth: FirebaseAuth, navigateToHome: () -> Unit, navigateToLogI
             transparent = false,
             enabled = enableSignUp
         )
+
         Spacer(Modifier.height(8.dp))
+
+        // GOOGLE BUTTON
         CustomButton(
             onClick = {
                 /* TODO */
@@ -120,7 +182,9 @@ fun SignUpContent(auth: FirebaseAuth, navigateToHome: () -> Unit, navigateToLogI
 
         Spacer(Modifier.height(32.dp))
 
+        // LOGIN LINK
         Text(text = "Already have an account?", color = White)
+
         Text(
             text = "Log In",
             fontWeight = FontWeight.Bold,

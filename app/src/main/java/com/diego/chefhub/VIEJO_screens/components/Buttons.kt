@@ -1,4 +1,4 @@
-package com.diego.chefhub.screens.components
+package com.diego.chefhub.VIEJO_screens.components
 
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text

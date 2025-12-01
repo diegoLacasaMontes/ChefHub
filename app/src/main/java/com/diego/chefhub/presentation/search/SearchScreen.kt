@@ -1,4 +1,4 @@
-package com.diego.chefhub.presentation.home
+package com.diego.chefhub.presentation.search
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,8 +17,8 @@ import com.diego.chefhub.ui.theme.Light_Black
 import com.diego.chefhub.ui.theme.White
 
 @Composable
-fun HomeScreen(
-    navigateToSearch: () -> Unit,
+fun SearchScreen(
+    navigateToHome: () -> Unit,
     navigateToCreate: () -> Unit,
     navigateToAccount: () -> Unit,
     navigateToRecipe: () -> Unit,
@@ -27,8 +27,8 @@ fun HomeScreen(
         topBar = { MyHomeTopAppBar() },
         bottomBar = {
             MyNavigationBottomBar(
-                screen = "Home",
-                navigateToSearch = navigateToSearch,
+                screen = "Search",
+                navigateToHome = navigateToHome,
                 navigateToCreate = navigateToCreate,
                 navigateToAccount = navigateToAccount
             )
@@ -40,18 +40,18 @@ fun HomeScreen(
                 .padding(paddingValues)
                 .background(Light_Black)
         ) {
-            HomeContent(navigateToRecipe)
+            SearchContent(navigateToRecipe)
         }
     }
 }
 
 @Composable
-private fun HomeContent(navigateToRecipe: () -> Unit) {
+private fun SearchContent(navigateToRecipe: () -> Unit) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
         modifier = Modifier.fillMaxSize()
     ) {
-        Text("Home screen", color = White)
+        Text("Search screen", color = White)
     }
 }

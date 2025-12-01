@@ -1,4 +1,4 @@
-package com.diego.chefhub.screens.components
+package com.diego.chefhub.VIEJO_screens.components
 
 import android.content.Context
 import android.widget.Toast

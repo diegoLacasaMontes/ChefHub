@@ -1,6 +1,5 @@
 package com.diego.chefhub.scaffold
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -8,8 +7,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -24,10 +23,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.diego.chefhub.R
 import com.diego.chefhub.ui.theme.Black
@@ -35,9 +33,12 @@ import com.diego.chefhub.ui.theme.White
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyBackTopAppBar(navigateBack: () -> Unit) {
+fun MyBackTopAppBar(
+    navigateBack: () -> Unit,
+    title: String = ""
+) {
     TopAppBar(
-        title = {},
+        title = { Text(title, color = White, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth()) },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = Black,
             navigationIconContentColor = White,
@@ -66,17 +67,53 @@ fun MyHomeTopAppBar() {
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.logo_no_bg),
-                        contentDescription = "Logo",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.size(60.dp),
-                        colorFilter = ColorFilter.tint(Color.White)
-                    )
-                    Spacer(Modifier.width(16.dp))
                     Text(
-                        "ChefHub",
+                        text = "ChefHub",
                         fontWeight = FontWeight.Bold
+                    )
+                }
+            },
+            colors = TopAppBarDefaults.topAppBarColors(
+                containerColor = Black,
+                titleContentColor = White
+            )
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun MyAccountTopAppBar(
+    user: String,
+    navigateToSettings: () -> Unit
+) {
+    Column {
+        TopAppBar(
+            title = {
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = user,
+                        fontWeight = FontWeight.Bold
+                    )
+
+                    PersonalizedIconButton(
+                        modifier = Modifier.size(16.dp),
+                        icon = R.drawable.ic_arrow_down,
+                        contentDescription = "Down Arrow",
+                        onClick = { /* TODO */ }
+                    )
+
+                    Spacer(Modifier.weight(1f))
+
+                    PersonalizedIconButton(
+                        modifier = Modifier.size(28.dp),
+                        icon = R.drawable.ic_settings,
+                        contentDescription = "Settings",
+                        onClick = { navigateToSettings() }
                     )
                 }
             },
@@ -122,7 +159,7 @@ fun MyNavigationBottomBar(
                     VerticalDivider(
                         color = White,
                         thickness = 1.dp,
-                        modifier = Modifier.size(18.dp)
+                        modifier = Modifier.height(24.dp)
                     )
 
                     PersonalizedIconButton(
@@ -135,7 +172,7 @@ fun MyNavigationBottomBar(
                     VerticalDivider(
                         color = White,
                         thickness = 1.dp,
-                        modifier = Modifier.size(18.dp)
+                        modifier = Modifier.height(24.dp)
                     )
 
                     PersonalizedIconButton(
@@ -148,7 +185,7 @@ fun MyNavigationBottomBar(
                     VerticalDivider(
                         color = White,
                         thickness = 1.dp,
-                        modifier = Modifier.size(18.dp)
+                        modifier = Modifier.height(24.dp)
                     )
 
                     PersonalizedIconButton(
@@ -164,13 +201,14 @@ fun MyNavigationBottomBar(
 }
 
 @Composable
-fun PersonalizedIconButton(
+private fun PersonalizedIconButton(
+    modifier: Modifier = Modifier,
     icon: Int,
     contentDescription: String,
-    condition: Boolean,
+    condition: Boolean = false,
     onClick: () -> Unit
-) { // TODO: Improve
-    IconButton(onClick = onClick) {
+) {
+    IconButton(onClick = { onClick() }) {
         val backgroundColor = if (condition) Color(0xFF00796B) else Color.Transparent
 
         Box(
@@ -182,7 +220,8 @@ fun PersonalizedIconButton(
             Icon(
                 painter = painterResource(id = icon),
                 contentDescription = contentDescription,
-                tint = White
+                tint = White,
+                modifier = modifier
             )
         }
     }

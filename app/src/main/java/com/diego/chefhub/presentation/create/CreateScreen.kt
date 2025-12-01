@@ -1,4 +1,4 @@
-package com.diego.chefhub.presentation.home
+package com.diego.chefhub.presentation.create
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,19 +17,18 @@ import com.diego.chefhub.ui.theme.Light_Black
 import com.diego.chefhub.ui.theme.White
 
 @Composable
-fun HomeScreen(
+fun CreateScreen(
+    navigateToHome: () -> Unit,
     navigateToSearch: () -> Unit,
-    navigateToCreate: () -> Unit,
-    navigateToAccount: () -> Unit,
-    navigateToRecipe: () -> Unit,
+    navigateToAccount: () -> Unit
 ) {
     Scaffold(
         topBar = { MyHomeTopAppBar() },
         bottomBar = {
             MyNavigationBottomBar(
-                screen = "Home",
+                screen = "Create",
+                navigateToHome = navigateToHome,
                 navigateToSearch = navigateToSearch,
-                navigateToCreate = navigateToCreate,
                 navigateToAccount = navigateToAccount
             )
         }
@@ -40,18 +39,18 @@ fun HomeScreen(
                 .padding(paddingValues)
                 .background(Light_Black)
         ) {
-            HomeContent(navigateToRecipe)
+            CreateContent()
         }
     }
 }
 
 @Composable
-private fun HomeContent(navigateToRecipe: () -> Unit) {
+private fun CreateContent() {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
         modifier = Modifier.fillMaxSize()
     ) {
-        Text("Home screen", color = White)
+        Text("Create screen", color = White)
     }
 }

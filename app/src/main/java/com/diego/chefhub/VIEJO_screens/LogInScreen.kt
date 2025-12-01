@@ -1,4 +1,4 @@
-package com.diego.chefhub.screens
+package com.diego.chefhub.VIEJO_screens
 
 import android.Manifest
 import android.os.Build
@@ -26,15 +26,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.diego.chefhub.R
-import com.diego.chefhub.navigation.AppScreens
-import com.diego.chefhub.screens.components.ClickableText
-import com.diego.chefhub.screens.components.PasswordTextField
-import com.diego.chefhub.screens.components.SimpleButton
-import com.diego.chefhub.screens.components.SimpleTextField
-import com.diego.chefhub.screens.components.VerticalSpacer
-import com.diego.chefhub.screens.components.loadCredentials
-import com.diego.chefhub.screens.components.saveCredentials
-import com.diego.chefhub.screens.components.showMessage
+import com.diego.chefhub.VIEJO_screens.components.ClickableText
+import com.diego.chefhub.VIEJO_screens.components.PasswordTextField
+import com.diego.chefhub.VIEJO_screens.components.SimpleButton
+import com.diego.chefhub.VIEJO_screens.components.SimpleTextField
+import com.diego.chefhub.VIEJO_screens.components.VerticalSpacer
+import com.diego.chefhub.VIEJO_screens.components.loadCredentials
+import com.diego.chefhub.VIEJO_screens.components.saveCredentials
+import com.diego.chefhub.VIEJO_screens.components.showMessage
 import com.diego.chefhub.ui.AppViewModel
 import kotlin.system.exitProcess
 
@@ -163,7 +162,6 @@ private fun LoginContent(navController: NavController, appViewModel: AppViewMode
             link = "Registrarse",
             onClick = {
                 appViewModel.resetUserValues()
-                navController.navigate(AppScreens.RegisterScreen.route)
             }
         )
 
@@ -173,7 +171,6 @@ private fun LoginContent(navController: NavController, appViewModel: AppViewMode
             link = "Ayuda",
             onClick = {
                 appViewModel.resetUserValues()
-                navController.navigate(AppScreens.PasswordRecoveryScreen.route)
             }
         )
     }
