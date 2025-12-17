@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -48,14 +49,14 @@ fun InitialScreen(navigateToLogIn: () -> Unit, navigateToSignUp: () -> Unit) {
 
         Spacer(Modifier.height(8.dp))
         Text(
-            "Millions of recipes.",
+            text = stringResource(id = R.string.title_onboarding_recipes),
             color = Color.White,
             fontSize = 32.sp,
             fontWeight = FontWeight.Bold
         )
         Spacer(Modifier.height(8.dp))
         Text(
-            "Free on ChefHub.",
+            text = stringResource(id = R.string.title_onboarding_free),
             color = Color.White,
             fontSize = 32.sp,
             fontWeight = FontWeight.Bold
@@ -77,7 +78,10 @@ fun InitialScreen(navigateToLogIn: () -> Unit, navigateToSignUp: () -> Unit) {
 
         Button(
             onClick = { navigateToLogIn() },
-            Modifier.fillMaxWidth().height(48.dp).padding(horizontal =32.dp),
+            Modifier
+                .fillMaxWidth()
+                .height(48.dp)
+                .padding(horizontal = 32.dp),
             colors = ButtonDefaults.buttonColors(containerColor = BackgroundButton),
             border = BorderStroke(2.dp, color = ShapeButton)
         ) {

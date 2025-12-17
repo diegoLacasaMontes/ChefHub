@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ChefHub</string>
+
+    <string name="title_onboarding_recipes">Milioni di ricette.</string>
+    <string name="title_onboarding_free">Gratis su ChefHub.</string>
+
+    <string name="label_account_publications">Pubblicazioni</string>
+    <string name="label_account_followers">Follower</string>
+    <string name="label_account_following">Seguiti</string>
+
+    <string name="title_settings">Impostazioni</string>
+
+    <string name="section_settings_account">Impostazioni account</string>
+    <string name="action_edit_profile">Modifica profilo</string>
+    <string name="action_change_password">Cambia password</string>
+    <string name="action_logout">Disconnetti</string>
+    <string name="action_delete_account">Elimina account</string>
+
+    <string name="section_settings_notifications">Notifiche</string>
+    <string name="pref_receive_notifications">Ricevi notifiche</string>
+
+    <string name="section_settings_privacy">Privacy</string>
+    <string name="action_change_privacy">Modifica privacy</string>
+
+    <string name="section_settings_support">Commenti e supporto</string>
+    <string name="action_view_comments">Visualizza commenti</string>
+    <string name="action_contact_support">Contatta il supporto</string>
+
+    <string name="section_settings_accessibility">Accessibilità</string>
+    <string name="pref_language">Cambia lingua</string>
+    <string name="pref_theme">Seleziona tema</string>
+    <string name="pref_font_size">Dimensione carattere</string>
+</resources>

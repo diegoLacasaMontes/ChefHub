@@ -1,4 +1,4 @@
-package com.diego.chefhub.presentation_tutorial.model
+package com.diego.chefhub.VIEJO_presentation_tutorial.model
 
 data class Artist(
     val name: String? = null,

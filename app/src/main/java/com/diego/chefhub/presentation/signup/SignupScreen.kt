@@ -1,6 +1,5 @@
 package com.diego.chefhub.presentation.signup
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -13,11 +12,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,24 +21,25 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.diego.chefhub.R
-import com.diego.chefhub.presentation.signup.components.CustomButton
-import com.diego.chefhub.presentation.signup.components.CustomInputField
 import com.diego.chefhub.scaffold.MyBackTopAppBar
+import com.diego.chefhub.ui.components.CustomButton
+import com.diego.chefhub.ui.components.CustomInputField
 import com.diego.chefhub.ui.theme.Black
 import com.diego.chefhub.ui.theme.White
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseAuthUserCollisionException
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 
 @Composable
-fun SignUpScreen(
+fun SignupScreen(
     auth: FirebaseAuth,
     navigateToHome: () -> Unit,
-    navigateToLogIn: () -> Unit,
+    navigateToLogin: () -> Unit,
     navigateBack: () -> Unit
 ) {
+    val viewModel: SignupViewModel = viewModel(factory = SignupViewModelFactory(auth))
+    val uiState by viewModel.uiState.collectAsState()
+
     Scaffold(
         topBar = { MyBackTopAppBar(navigateBack) }
     ) { paddingValues ->
@@ -52,26 +49,25 @@ fun SignUpScreen(
                 .padding(paddingValues)
                 .background(Black)
         ) {
-            SignUpContent(auth, navigateToHome, navigateToLogIn)
+            SignupContent(
+                uiState = uiState,
+                onEmailChange = viewModel::onEmailChange,
+                onPasswordChange = viewModel::onPasswordChange,
+                onSignupClick = { viewModel.signup(navigateToHome) },
+                navigateToLogin = navigateToLogin
+            )
         }
     }
 }
 
 @Composable
-private fun SignUpContent(
-    auth: FirebaseAuth,
-    navigateToHome: () -> Unit,
-    navigateToLogIn: () -> Unit
+private fun SignupContent(
+    uiState: SignupUiState,
+    onEmailChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit,
+    onSignupClick: () -> Unit,
+    navigateToLogin: () -> Unit
 ) {
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var enableSignUp by remember { mutableStateOf(false) }
-
-    val emailRegex = Regex("^[^@]+@[^@]+\\.[^@]+$")
-    val passwordRegex = Regex("^(?=.*[0-9])(?=.*[!@#\$%^&*(),.?\":{}|<>]).{10,}$")
-
-    var errorMessage by rememberSaveable { mutableStateOf("") }
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -82,12 +78,8 @@ private fun SignUpContent(
         Text(text = "Email", color = White, fontWeight = FontWeight.Bold, fontSize = 40.sp)
 
         CustomInputField(
-            value = email,
-            onValueChange = { email = it },
-            onValueChangeExtra = {
-                enableSignUp = emailRegex.matches(it) && passwordRegex.matches(password)
-                errorMessage = ""
-            }
+            value = uiState.email,
+            onValueChange = onEmailChange
         )
 
         Spacer(Modifier.height(8.dp))
@@ -105,12 +97,8 @@ private fun SignUpContent(
         Text(text = "Password", color = White, fontWeight = FontWeight.Bold, fontSize = 40.sp)
 
         CustomInputField(
-            value = password,
-            onValueChange = { password = it },
-            onValueChangeExtra = {
-                enableSignUp = emailRegex.matches(email) && passwordRegex.matches(it)
-                errorMessage = ""
-            },
+            value = uiState.password,
+            onValueChange = onPasswordChange,
             password = true
         )
 
@@ -127,54 +115,27 @@ private fun SignUpContent(
 
         // ERROR MESSAGE
         Text(
-            text = errorMessage,
-            color = if (errorMessage.isEmpty()) Color.Transparent else Color.Red,
+            text = uiState.errorMessage,
+            color = if (uiState.errorMessage.isEmpty()) Color.Transparent else Color.Red,
             fontWeight = FontWeight.Bold
         )
 
         Spacer(Modifier.height(8.dp))
 
-        // BUTTON SIGN UP
+        // SIGNUP BUTTON
         CustomButton(
-            onClick = {
-                if (!emailRegex.matches(input = email)) {
-                    errorMessage = "Invalid email format"
-                    return@CustomButton
-                }
-
-                if (!passwordRegex.matches(input = password)) {
-                    errorMessage = "Password must contain a number and a special character"
-                    return@CustomButton
-                }
-
-                auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        navigateToHome()
-                    } else {
-                        val exception = task.exception
-                        errorMessage = when (exception) {
-                            is FirebaseAuthWeakPasswordException -> "Password is too weak"
-                            is FirebaseAuthInvalidCredentialsException -> "Invalid email"
-                            is FirebaseAuthUserCollisionException -> "Email already in use"
-                            else -> exception?.message ?: "Unknown error"
-                        }
-                    }
-                }
-            },
+            onClick = onSignupClick,
             title = "Create Account",
             image = R.drawable.email,
             transparent = false,
-            enabled = enableSignUp
+            enabled = uiState.isSignupEnabled && !uiState.isLoading
         )
 
         Spacer(Modifier.height(8.dp))
 
-        // GOOGLE BUTTON
+        // GOOGLE SIGNUP
         CustomButton(
-            onClick = {
-                /* TODO */
-                Log.i("diego", "Google")
-            },
+            onClick = { /* TODO */ },
             title = "Continue with Google",
             image = R.drawable.google,
             transparent = true,
@@ -189,7 +150,7 @@ private fun SignUpContent(
             text = "Log In",
             fontWeight = FontWeight.Bold,
             color = White,
-            modifier = Modifier.clickable { navigateToLogIn() }
+            modifier = Modifier.clickable { navigateToLogin() }
         )
 
         Spacer(Modifier.height(32.dp))

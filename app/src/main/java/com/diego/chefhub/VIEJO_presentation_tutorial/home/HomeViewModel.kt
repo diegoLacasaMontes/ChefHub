@@ -1,9 +1,9 @@
-package com.diego.chefhub.presentation_tutorial.home
+package com.diego.chefhub.VIEJO_presentation_tutorial.home
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.diego.chefhub.presentation_tutorial.model.Artist
+import com.diego.chefhub.VIEJO_presentation_tutorial.model.Artist
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore

@@ -1,7 +1,6 @@
-package com.diego.chefhub.presentation.signup.components
+package com.diego.chefhub.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -17,7 +16,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.unit.dp
 import com.diego.chefhub.R
 import com.diego.chefhub.ui.theme.SelectedField
 import com.diego.chefhub.ui.theme.UnselectedField

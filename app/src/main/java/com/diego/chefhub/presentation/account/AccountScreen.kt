@@ -26,6 +26,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.diego.chefhub.R
@@ -44,7 +45,11 @@ fun AccountScreen(
     navigateToSettings: () -> Unit
 ) {
     Scaffold(
-        topBar = { MyAccountTopAppBar(user = "Dilamo22", navigateToSettings = { navigateToSettings() }) },
+        topBar = {
+            MyAccountTopAppBar(
+                user = "Dilamo22",
+                navigateToSettings = { navigateToSettings() })
+        },
         bottomBar = {
             MyNavigationBottomBar(
                 screen = "Account",
@@ -97,11 +102,23 @@ private fun AccountContent(
                     colorFilter = ColorFilter.tint(Color.Gray)
                 )
 
-                Text("Publications\n0", textAlign = TextAlign.Center, color = White)
+                Text(
+                    text = "${stringResource(id = R.string.label_account_publications)}\n0",
+                    textAlign = TextAlign.Center,
+                    color = White
+                )
 
-                Text("Followers\n0", textAlign = TextAlign.Center, color = White)
+                Text(
+                    text = "${stringResource(id = R.string.label_account_followers)}\n0",
+                    textAlign = TextAlign.Center,
+                    color = White
+                )
 
-                Text("Following\n0", textAlign = TextAlign.Center, color = White)
+                Text(
+                    text = "${stringResource(id = R.string.label_account_following)}\n0",
+                    textAlign = TextAlign.Center,
+                    color = White
+                )
             }
 
             Row(
@@ -130,7 +147,10 @@ private fun AccountContent(
         Row(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.weight(2f).fillMaxWidth().background(Light_Black)
+            modifier = Modifier
+                .weight(2f)
+                .fillMaxWidth()
+                .background(Light_Black)
         ) {
             if (viewing == "publications") {
                 Text("Publications", color = White)

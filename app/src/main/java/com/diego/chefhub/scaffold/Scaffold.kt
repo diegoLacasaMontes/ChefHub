@@ -38,20 +38,33 @@ fun MyBackTopAppBar(
     title: String = ""
 ) {
     TopAppBar(
-        title = { Text(title, color = White, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth()) },
+        title = {
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = title,
+                    color = White,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = Black,
-            navigationIconContentColor = White,
-            actionIconContentColor = White
+            navigationIconContentColor = White
         ),
         navigationIcon = {
-            IconButton(onClick = { navigateBack() }) {
+            IconButton(onClick = navigateBack) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_back),
-                    contentDescription = "Atrás",
+                    contentDescription = "Back",
                     modifier = Modifier.size(24.dp)
                 )
             }
+        },
+        actions = {
+            Spacer(modifier = Modifier.size(48.dp))
         }
     )
 }
@@ -91,7 +104,7 @@ fun MyAccountTopAppBar(
         TopAppBar(
             title = {
                 Row(
-                    horizontalArrangement = Arrangement.SpaceBetween,
+                    horizontalArrangement = Arrangement.Start,
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.fillMaxWidth()
                 ) {
@@ -106,21 +119,20 @@ fun MyAccountTopAppBar(
                         contentDescription = "Down Arrow",
                         onClick = { /* TODO */ }
                     )
-
-                    Spacer(Modifier.weight(1f))
-
-                    PersonalizedIconButton(
-                        modifier = Modifier.size(28.dp),
-                        icon = R.drawable.ic_settings,
-                        contentDescription = "Settings",
-                        onClick = { navigateToSettings() }
-                    )
                 }
             },
             colors = TopAppBarDefaults.topAppBarColors(
                 containerColor = Black,
                 titleContentColor = White
-            )
+            ),
+            actions = {
+                PersonalizedIconButton(
+                    modifier = Modifier.size(28.dp),
+                    icon = R.drawable.ic_settings,
+                    contentDescription = "Settings",
+                    onClick = { navigateToSettings() }
+                )
+            }
         )
     }
 }

@@ -1,4 +1,4 @@
-package com.diego.chefhub.presentation.signup.components
+package com.diego.chefhub.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
