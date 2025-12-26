@@ -18,6 +18,7 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,10 +39,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.diego.chefhub.R
 import com.diego.chefhub.scaffold.MyBackTopAppBar
 import com.diego.chefhub.ui.AppViewModel
-import com.diego.chefhub.ui.theme.Black
-import com.diego.chefhub.ui.theme.Dark_White
-import com.diego.chefhub.ui.theme.Gray
-import com.diego.chefhub.ui.theme.White
 import com.google.firebase.auth.FirebaseAuth
 
 @Composable
@@ -66,7 +63,7 @@ fun SettingsScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(Black)
+                .background(color = MaterialTheme.colorScheme.background)
         ) {
             SettingsContent(
                 onLogout = { settingsViewModel.logout(navigateToInitial) },
@@ -107,20 +104,20 @@ private fun SettingsContent(
         verticalArrangement = Arrangement.Top,
         modifier = Modifier
             .fillMaxSize()
-            .padding(8.dp)
-            .background(Black)
+            .padding(all = 8.dp)
+//            .background(color = MaterialTheme.colorScheme.background)
     ) {
-        HorizontalDivider(color = Gray, thickness = 5.dp)
+        HorizontalDivider(color = MaterialTheme.colorScheme.surfaceVariant, thickness = 5.dp)
 
         Text(
             text = stringResource(id = R.string.section_settings_account),
-            color = White,
+            color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Bold,
             fontSize = 24.sp,
             modifier = Modifier.fillMaxWidth()
         )
-        Spacer(Modifier.height(12.dp))
+        Spacer(Modifier.height(height = 12.dp))
 
         CustomButton(
             title = stringResource(id = R.string.action_edit_profile),
@@ -140,55 +137,55 @@ private fun SettingsContent(
             icon = R.drawable.ic_delete_user,
             onClick = onDeleteAccount
         )
-        Spacer(Modifier.height(24.dp))
+        Spacer(Modifier.height(height = 24.dp))
 
-        HorizontalDivider(color = Gray, thickness = 5.dp)
+        HorizontalDivider(color = MaterialTheme.colorScheme.surfaceVariant, thickness = 5.dp)
 
         Text(
             text = stringResource(id = R.string.section_settings_notifications),
-            color = White,
+            color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Bold,
             fontSize = 24.sp,
             modifier = Modifier.fillMaxWidth()
         )
-        Spacer(Modifier.height(12.dp))
+        Spacer(Modifier.height(height = 12.dp))
 
         CustomButton(
             title = stringResource(id = R.string.pref_receive_notifications),
             icon = R.drawable.ic_notifications,
             onClick = {})
-        Spacer(Modifier.height(24.dp))
+        Spacer(Modifier.height(height = 24.dp))
 
-        HorizontalDivider(color = Gray, thickness = 5.dp)
+        HorizontalDivider(color = MaterialTheme.colorScheme.surfaceVariant, thickness = 5.dp)
 
         Text(
             text = stringResource(id = R.string.section_settings_privacy),
-            color = White,
+            color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Bold,
             fontSize = 24.sp,
             modifier = Modifier.fillMaxWidth()
         )
-        Spacer(Modifier.height(12.dp))
+        Spacer(Modifier.height(height = 12.dp))
 
         CustomButton(
             title = stringResource(id = R.string.action_change_privacy),
             icon = R.drawable.ic_privacy,
             onClick = {})
-        Spacer(Modifier.height(24.dp))
+        Spacer(Modifier.height(height = 24.dp))
 
-        HorizontalDivider(color = Gray, thickness = 5.dp)
+        HorizontalDivider(color = MaterialTheme.colorScheme.surfaceVariant, thickness = 5.dp)
 
         Text(
             text = stringResource(id = R.string.section_settings_support),
-            color = White,
+            color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Bold,
             fontSize = 24.sp,
             modifier = Modifier.fillMaxWidth()
         )
-        Spacer(Modifier.height(12.dp))
+        Spacer(Modifier.height(height = 12.dp))
 
         CustomButton(
             title = stringResource(id = R.string.action_view_comments),
@@ -198,29 +195,29 @@ private fun SettingsContent(
             title = stringResource(id = R.string.action_contact_support),
             icon = R.drawable.ic_support,
             onClick = {})
-        Spacer(Modifier.height(24.dp))
+        Spacer(Modifier.height(height = 24.dp))
 
-        HorizontalDivider(color = Gray, thickness = 5.dp)
+        HorizontalDivider(color = MaterialTheme.colorScheme.surfaceVariant, thickness = 5.dp)
 
         Text(
             text = stringResource(id = R.string.section_settings_accessibility),
-            color = White,
+            color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Bold,
             fontSize = 24.sp,
             modifier = Modifier.fillMaxWidth()
         )
-        Spacer(Modifier.height(12.dp))
+        Spacer(Modifier.height(height = 12.dp))
 
-        SettingsDropdownItem(
-            title = stringResource(id = R.string.pref_language),
+        SettingsDropdownItem( /* TODO: En vez de tener el idioma/tema en texto, tener un icono (sol/luna, bandera del país) */
+            title = stringResource(id = R.string.pref_theme),
             icon = R.drawable.ic_dark_mode,
             selectedOption = selectedTheme,
             options = themeOptions,
             onOptionSelected = onChangeTheme
         )
         SettingsDropdownItem(
-            title = stringResource(id = R.string.pref_theme),
+            title = stringResource(id = R.string.pref_language),
             icon = R.drawable.ic_language,
             selectedOption = selectedLanguage,
             options = languageOptions,
@@ -232,7 +229,7 @@ private fun SettingsContent(
             onClick = {})
         Spacer(Modifier.height(24.dp))
 
-        HorizontalDivider(color = Gray, thickness = 5.dp)
+        HorizontalDivider(color = MaterialTheme.colorScheme.surfaceVariant, thickness = 5.dp)
     }
 }
 
@@ -250,21 +247,21 @@ private fun CustomButton(title: String, icon: Int, onClick: () -> Unit) {
         Icon(
             painter = painterResource(id = icon),
             contentDescription = title,
-            tint = Dark_White,
-            modifier = Modifier.size(24.dp)
+            tint = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier.size(size = 24.dp)
         )
 
-        Spacer(Modifier.width(12.dp))
+        Spacer(Modifier.width(width = 12.dp))
 
         Text(
             text = title,
-            color = Dark_White,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 20.sp
         )
 
         Text(
             text = ">",
-            color = Dark_White,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.End,
@@ -281,7 +278,7 @@ fun SettingsDropdownItem(
     options: List<String>,
     onOptionSelected: (String) -> Unit
 ) {
-    var expanded by remember { mutableStateOf(false) }
+    var expanded by remember { mutableStateOf(value = false) }
 
     Box {
         CustomButton(
@@ -300,7 +297,7 @@ fun SettingsDropdownItem(
                         Text(
                             text = option,
                             fontWeight = if (option == selectedOption) FontWeight.Bold else FontWeight.Normal,
-                            color = Black
+                            color = MaterialTheme.colorScheme.onBackground
                         )
                     },
                     onClick = {

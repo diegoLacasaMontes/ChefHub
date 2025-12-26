@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.diego.chefhub.VIEJO_presentation_tutorial.model.Artist
-import com.diego.chefhub.ui.theme.Black
+import com.diego.chefhub.ui.theme.DarkBackground
 import com.google.firebase.auth.FirebaseAuth
 
 @Composable
@@ -34,7 +34,7 @@ fun HomeScreenViejo(auth: FirebaseAuth, navigateToInitial: () -> Unit, viewModel
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Black)
+            .background(DarkBackground)
     ) {
         Text(
             "Popular artist",

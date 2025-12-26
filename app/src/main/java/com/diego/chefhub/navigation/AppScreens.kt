@@ -2,8 +2,8 @@ package com.diego.chefhub.navigation
 
 sealed class AppScreens (val route: String) {
     data object InitialScreen: AppScreens(route = "InitialScreen")
-    data object LoginScreen: AppScreens(route = "LogInScreen2")
-    data object SignupScreen: AppScreens(route = "SignUpScreen")
+    data object LoginScreen: AppScreens(route = "LoginScreen2")
+    data object SignupScreen: AppScreens(route = "SignupScreen")
     data object HomeScreen: AppScreens(route = "HomeScreen")
     data object SearchScreen: AppScreens(route = "SearchScreen")
     data object CreateScreen: AppScreens(route = "CreateScreen")

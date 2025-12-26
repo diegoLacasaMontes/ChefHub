@@ -10,9 +10,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,9 +32,6 @@ import androidx.compose.ui.unit.dp
 import com.diego.chefhub.R
 import com.diego.chefhub.scaffold.MyAccountTopAppBar
 import com.diego.chefhub.scaffold.MyNavigationBottomBar
-import com.diego.chefhub.ui.theme.Black
-import com.diego.chefhub.ui.theme.Light_Black
-import com.diego.chefhub.ui.theme.White
 
 @Composable
 fun AccountScreen(
@@ -63,7 +60,7 @@ fun AccountScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(Black)
+                .background(color = MaterialTheme.colorScheme.background)
         ) {
             AccountContent(navigateToRecipe)
         }
@@ -85,39 +82,39 @@ private fun AccountContent(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
             modifier = Modifier
-                .weight(1f)
+                .weight(weight = 1f)
                 .fillMaxWidth()
         ) {
             Row(
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
-                    .weight(3f)
+                    .weight(weight = 3f)
                     .fillMaxWidth()
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.icono_usuario_estandar),
                     contentDescription = "Profile picture",
-                    modifier = Modifier.size(100.dp),
+                    modifier = Modifier.size(size = 100.dp),
                     colorFilter = ColorFilter.tint(Color.Gray)
                 )
 
                 Text(
                     text = "${stringResource(id = R.string.label_account_publications)}\n0",
                     textAlign = TextAlign.Center,
-                    color = White
+                    color = MaterialTheme.colorScheme.onBackground
                 )
 
                 Text(
                     text = "${stringResource(id = R.string.label_account_followers)}\n0",
                     textAlign = TextAlign.Center,
-                    color = White
+                    color = MaterialTheme.colorScheme.onBackground
                 )
 
                 Text(
                     text = "${stringResource(id = R.string.label_account_following)}\n0",
                     textAlign = TextAlign.Center,
-                    color = White
+                    color = MaterialTheme.colorScheme.onBackground
                 )
             }
 
@@ -125,7 +122,7 @@ private fun AccountContent(
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
-                    .weight(1f)
+                    .weight(weight = 1f)
                     .fillMaxWidth()
             ) {
                 PersonalizedIconButton(
@@ -148,14 +145,14 @@ private fun AccountContent(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .weight(2f)
+                .weight(weight = 2f)
                 .fillMaxWidth()
-                .background(Light_Black)
+                .background(color = MaterialTheme.colorScheme.secondary)
         ) {
             if (viewing == "publications") {
-                Text("Publications", color = White)
+                Text(text = "Publications", color = MaterialTheme.colorScheme.onBackground)
             } else {
-                Text("Saved", color = White)
+                Text(text = "Saved", color = MaterialTheme.colorScheme.onBackground)
             }
         }
     }
@@ -169,11 +166,11 @@ private fun PersonalizedIconButton(
     onClick: () -> Unit
 ) {
     IconButton(onClick = { onClick() }) {
-        val iconColor = if (condition) White else Color.DarkGray
+        val iconColor = if (condition) MaterialTheme.colorScheme.onBackground else Color.DarkGray
         val iconScale = if (condition) 1f else 0.8f
 
         Box(
-            modifier = Modifier.size(50.dp),
+            modifier = Modifier.size(size = 50.dp),
             contentAlignment = Alignment.Center
         ) {
             Icon(

@@ -15,6 +15,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -25,11 +26,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.diego.chefhub.R
-import com.diego.chefhub.ui.theme.Black
-import com.diego.chefhub.ui.theme.White
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -45,14 +43,14 @@ fun MyBackTopAppBar(
             ) {
                 Text(
                     text = title,
-                    color = White,
+                    color = MaterialTheme.colorScheme.onBackground,
                     fontWeight = FontWeight.Bold
                 )
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Black,
-            navigationIconContentColor = White
+            containerColor = MaterialTheme.colorScheme.background,
+            navigationIconContentColor = MaterialTheme.colorScheme.onBackground
         ),
         navigationIcon = {
             IconButton(onClick = navigateBack) {
@@ -87,8 +85,8 @@ fun MyHomeTopAppBar() {
                 }
             },
             colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = Black,
-                titleContentColor = White
+                containerColor = MaterialTheme.colorScheme.background,
+                titleContentColor = MaterialTheme.colorScheme.onBackground
             )
         )
     }
@@ -122,8 +120,8 @@ fun MyAccountTopAppBar(
                 }
             },
             colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = Black,
-                titleContentColor = White
+                containerColor = MaterialTheme.colorScheme.background,
+                titleContentColor = MaterialTheme.colorScheme.onBackground
             ),
             actions = {
                 PersonalizedIconButton(
@@ -148,13 +146,13 @@ fun MyNavigationBottomBar(
 ) {
     Column {
         HorizontalDivider(
-            color = White,
+            color = MaterialTheme.colorScheme.onBackground,
             thickness = 0.25.dp
         )
 
         BottomAppBar(
-            containerColor = Black,
-            contentColor = White,
+            containerColor = MaterialTheme.colorScheme.background,
+            contentColor = MaterialTheme.colorScheme.onBackground,
             actions = {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -169,7 +167,7 @@ fun MyNavigationBottomBar(
                     )
 
                     VerticalDivider(
-                        color = White,
+                        color = MaterialTheme.colorScheme.onBackground,
                         thickness = 1.dp,
                         modifier = Modifier.height(24.dp)
                     )
@@ -182,7 +180,7 @@ fun MyNavigationBottomBar(
                     )
 
                     VerticalDivider(
-                        color = White,
+                        color = MaterialTheme.colorScheme.onBackground,
                         thickness = 1.dp,
                         modifier = Modifier.height(24.dp)
                     )
@@ -195,7 +193,7 @@ fun MyNavigationBottomBar(
                     )
 
                     VerticalDivider(
-                        color = White,
+                        color = MaterialTheme.colorScheme.onBackground,
                         thickness = 1.dp,
                         modifier = Modifier.height(24.dp)
                     )
@@ -232,7 +230,7 @@ private fun PersonalizedIconButton(
             Icon(
                 painter = painterResource(id = icon),
                 contentDescription = contentDescription,
-                tint = White,
+                tint = MaterialTheme.colorScheme.onBackground,
                 modifier = modifier
             )
         }

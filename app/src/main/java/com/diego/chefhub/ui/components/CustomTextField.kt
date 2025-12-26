@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -17,9 +18,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import com.diego.chefhub.R
-import com.diego.chefhub.ui.theme.SelectedField
-import com.diego.chefhub.ui.theme.UnselectedField
-import com.diego.chefhub.ui.theme.White
+import com.diego.chefhub.ui.theme.DarkSelectedField
+import com.diego.chefhub.ui.theme.DarkUnselectedField
 
 @Composable
 fun CustomInputField(
@@ -52,14 +52,14 @@ fun CustomInputField(
                     Icon(
                         painter = painterResource(id = R.drawable.ojo_ocultar),
                         contentDescription = "Mostrar/Ocultar contraseña",
-                        tint = White
+                        tint = MaterialTheme.colorScheme.onBackground
                     )
                 }
             }
         },
         colors = TextFieldDefaults.colors(
-            unfocusedContainerColor = UnselectedField,
-            focusedContainerColor = SelectedField
+            unfocusedContainerColor = DarkUnselectedField,
+            focusedContainerColor = DarkSelectedField
         ),
         modifier = Modifier.fillMaxWidth()
     )

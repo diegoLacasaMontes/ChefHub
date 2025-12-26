@@ -1,24 +1,30 @@
 package com.diego.chefhub.ui.theme
 
 import androidx.compose.ui.graphics.Color
+/** Light Mode **/
+val LightPrimary = Color(color = 0xFFFFFFFF)
+val LightOnPrimary = Color(color = 0xFF000000)
+val LightPrimaryContainer = Color(color = 0xFFFFFFFF)
+val LightSecondary = Color(color = 0xFFFFFFFF)
+val LightBackground = Color(color = 0xFFFFFFFF)
+val LightOnBackground = Color(color = 0xFF000000)
+val LightSurface = Color(color = 0xFFFFFFFF)
+val LightOnSurface = Color(color = 0xFF000000)
+val LightSurfaceVariant = Color(color = 0xFFFFFFFF)
+val LightOnError = Color(color = 0xFFFF0000)
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+/** Dark Mode **/
+val DarkPrimary = Color(color = 0xFF0056B3)
+val DarkOnPrimary = Color(color = 0xFF000000)
+val DarkPrimaryContainer = Color(color = 0xFF3e3e3e)
+val DarkSecondary = Color(color = 0xFF1E1E1E)
+val DarkBackground = Color(color = 0xFF121212)
+val DarkOnBackground = Color(color = 0xFFFFFFFF)
+val DarkSurface = Color(color = 0xFF1E1E1E)
+val DarkOnSurface = Color(color = 0xFFC9C9C9)
+val DarkSurfaceVariant = Color(color = 0xFF393939)
+val DarkOnError = Color(color = 0xFFFF0000)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
-
-val White = Color(0xFFFFFFFF)
-val Dark_White = Color(0xFFC9C9C9)
-val Gray = Color(0xFF393939)
-val Black = Color(0xFF121212)
-val Light_Black = Color(0xFF1E1E1E)
-val Green = Color(0xFF49dd63)
-val Blue = Color(0xFF0056B3)
-val BackgroundButton = Color(0xFF111111)
-val ShapeButton = Color(0xFF3e3e3e)
-
-val SelectedField = Color(0xFF7c7c7c)
-val UnselectedField = Color(0xFF4a4a4a)
+/** Independents **/
+val DarkSelectedField = Color(0xFF7c7c7c)
+val DarkUnselectedField = Color(0xFF4a4a4a)

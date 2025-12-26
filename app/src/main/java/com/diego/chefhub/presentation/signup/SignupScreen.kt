@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,8 +27,6 @@ import com.diego.chefhub.R
 import com.diego.chefhub.scaffold.MyBackTopAppBar
 import com.diego.chefhub.ui.components.CustomButton
 import com.diego.chefhub.ui.components.CustomInputField
-import com.diego.chefhub.ui.theme.Black
-import com.diego.chefhub.ui.theme.White
 import com.google.firebase.auth.FirebaseAuth
 
 @Composable
@@ -47,13 +46,13 @@ fun SignupScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(Black)
+                .background(color = MaterialTheme.colorScheme.background)
         ) {
             SignupContent(
                 uiState = uiState,
                 onEmailChange = viewModel::onEmailChange,
                 onPasswordChange = viewModel::onPasswordChange,
-                onSignupClick = { viewModel.signup(navigateToHome) },
+                onSignupClick = { viewModel.signup(onSuccess = navigateToHome) },
                 navigateToLogin = navigateToLogin
             )
         }
@@ -75,26 +74,36 @@ private fun SignupContent(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // EMAIL
-        Text(text = "Email", color = White, fontWeight = FontWeight.Bold, fontSize = 40.sp)
+        Text(
+            text = "Email",
+            color = MaterialTheme.colorScheme.onBackground,
+            fontWeight = FontWeight.Bold,
+            fontSize = 40.sp
+        )
 
         CustomInputField(
             value = uiState.email,
             onValueChange = onEmailChange
         )
 
-        Spacer(Modifier.height(8.dp))
+        Spacer(Modifier.height(height = 8.dp))
 
         Text(
             text = "You will have to confirm this address",
-            color = White,
+            color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Start
         )
 
-        Spacer(Modifier.height(48.dp))
+        Spacer(Modifier.height(height = 48.dp))
 
         // PASSWORD
-        Text(text = "Password", color = White, fontWeight = FontWeight.Bold, fontSize = 40.sp)
+        Text(
+            text = "Password",
+            color = MaterialTheme.colorScheme.onBackground,
+            fontWeight = FontWeight.Bold,
+            fontSize = 40.sp
+        )
 
         CustomInputField(
             value = uiState.password,
@@ -102,36 +111,35 @@ private fun SignupContent(
             password = true
         )
 
-        Spacer(Modifier.height(8.dp))
+        Spacer(Modifier.height(height = 8.dp))
 
         Text(
-            "Use at least 10 characters",
-            color = White,
+            text = "Use at least 10 characters",
+            color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Start
         )
 
-        Spacer(Modifier.weight(1f))
+        Spacer(Modifier.weight(weight = 1f))
 
         // ERROR MESSAGE
         Text(
             text = uiState.errorMessage,
-            color = if (uiState.errorMessage.isEmpty()) Color.Transparent else Color.Red,
+            color = if (uiState.errorMessage.isEmpty()) Color.Transparent else MaterialTheme.colorScheme.onError,
             fontWeight = FontWeight.Bold
         )
 
-        Spacer(Modifier.height(8.dp))
+        Spacer(Modifier.height(height = 8.dp))
 
         // SIGNUP BUTTON
         CustomButton(
             onClick = onSignupClick,
             title = "Create Account",
             image = R.drawable.email,
-            transparent = false,
             enabled = uiState.isSignupEnabled && !uiState.isLoading
         )
 
-        Spacer(Modifier.height(8.dp))
+        Spacer(Modifier.height(height = 8.dp))
 
         // GOOGLE SIGNUP
         CustomButton(
@@ -141,18 +149,18 @@ private fun SignupContent(
             transparent = true,
         )
 
-        Spacer(Modifier.height(32.dp))
+        Spacer(Modifier.height(height = 32.dp))
 
         // LOGIN LINK
-        Text(text = "Already have an account?", color = White)
+        Text(text = "Already have an account?", color = MaterialTheme.colorScheme.onBackground)
 
         Text(
             text = "Log In",
             fontWeight = FontWeight.Bold,
-            color = White,
+            color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.clickable { navigateToLogin() }
         )
 
-        Spacer(Modifier.height(32.dp))
+        Spacer(Modifier.height(height = 32.dp))
     }
 }

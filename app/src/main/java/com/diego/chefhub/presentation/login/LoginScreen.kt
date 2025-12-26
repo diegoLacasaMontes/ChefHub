@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,8 +25,6 @@ import com.diego.chefhub.R
 import com.diego.chefhub.scaffold.MyBackTopAppBar
 import com.diego.chefhub.ui.components.CustomButton
 import com.diego.chefhub.ui.components.CustomInputField
-import com.diego.chefhub.ui.theme.Black
-import com.diego.chefhub.ui.theme.White
 import com.google.firebase.auth.FirebaseAuth
 
 @Composable
@@ -45,13 +44,13 @@ fun LoginScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(Black)
+                .background(color = MaterialTheme.colorScheme.background)
         ) {
             LoginContent(
                 uiState = uiState,
                 onEmailChange = viewModel::onEmailChange,
                 onPasswordChange = viewModel::onPasswordChange,
-                onLoginClick = { viewModel.login(navigateToHome) },
+                onLoginClick = { viewModel.login(onSuccess = navigateToHome) },
                 navigateToSignup = navigateToSignup
             )
         }
@@ -73,17 +72,17 @@ private fun LoginContent(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // EMAIL
-        Text("Email", color = White, fontWeight = FontWeight.Bold, fontSize = 40.sp)
+        Text(text = "Email", color = MaterialTheme.colorScheme.onBackground, fontWeight = FontWeight.Bold, fontSize = 40.sp)
 
         CustomInputField(
             value = uiState.email,
             onValueChange = onEmailChange
         )
 
-        Spacer(Modifier.height(48.dp))
+        Spacer(Modifier.height(height = 48.dp))
 
         // PASSWORD
-        Text("Password", color = White, fontWeight = FontWeight.Bold, fontSize = 40.sp)
+        Text(text = "Password", color = MaterialTheme.colorScheme.onBackground, fontWeight = FontWeight.Bold, fontSize = 40.sp)
 
         CustomInputField(
             value = uiState.password,
@@ -107,11 +106,10 @@ private fun LoginContent(
             onClick = onLoginClick,
             title = "Log In",
             image = R.drawable.email,
-            transparent = false,
             enabled = uiState.isLoginEnabled && !uiState.isLoading
         )
 
-        Spacer(Modifier.height(8.dp))
+        Spacer(Modifier.height(height = 8.dp))
 
         // GOOGLE LOGIN
         CustomButton(
@@ -121,18 +119,18 @@ private fun LoginContent(
             transparent = true
         )
 
-        Spacer(Modifier.height(32.dp))
+        Spacer(Modifier.height(height = 32.dp))
 
         // SIGNUP LINK
-        Text(text = "Don't have an account?", color = White)
+        Text(text = "Don't have an account?", color = MaterialTheme.colorScheme.onBackground)
 
         Text(
             text = "Sign Up",
             fontWeight = FontWeight.Bold,
-            color = White,
+            color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.clickable { navigateToSignup() }
         )
 
-        Spacer(Modifier.height(32.dp))
+        Spacer(Modifier.height(height = 32.dp))
     }
 }

@@ -10,17 +10,17 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class SignupViewModel(private val auth: FirebaseAuth): ViewModel() {
-    private val _uiState = MutableStateFlow(SignupUiState())
+    private val _uiState = MutableStateFlow(value = SignupUiState())
     val uiState: StateFlow<SignupUiState> = _uiState.asStateFlow()
 
-    private val emailRegex = Regex("^[^@]+@[^@]+\\.[^@]+$")
-    private val passwordRegex = Regex("^(?=.*[0-9])(?=.*[!@#\$%^&*(),.?\":{}|<>]).{10,}$")
+    private val emailRegex = Regex(pattern = "^[^@]+@[^@]+\\.[^@]+$")
+    private val passwordRegex = Regex(pattern = "^(?=.*[0-9])(?=.*[!@#\$%^&*(),.?\":{}|<>]).{10,}$")
 
     fun onEmailChange(newEmail: String) {
         _uiState.value = _uiState.value.copy(
             email = newEmail,
             errorMessage = "",
-            isSignupEnabled = validate(newEmail, _uiState.value.password)
+            isSignupEnabled = validate(newEmail, password = _uiState.value.password)
         )
     }
 
@@ -28,26 +28,26 @@ class SignupViewModel(private val auth: FirebaseAuth): ViewModel() {
         _uiState.value = _uiState.value.copy(
             password = newPassword,
             errorMessage = "",
-            isSignupEnabled = validate(_uiState.value.email, newPassword)
+            isSignupEnabled = validate(email = _uiState.value.email, newPassword)
         )
     }
 
     private fun validate(email: String, password: String): Boolean {
-        return emailRegex.matches(email) && passwordRegex.matches(password)
+        return emailRegex.matches(input = email) && passwordRegex.matches(input = password)
     }
 
     fun signup(onSuccess: () -> Unit) {
         val email = _uiState.value.email
         val password = _uiState.value.password
 
-        if (!emailRegex.matches(email)) {
+        if (!emailRegex.matches(input = email)) {
             _uiState.value = _uiState.value.copy(
                 errorMessage = "Invalid email format"
             )
             return
         }
 
-        if (!passwordRegex.matches(password)) {
+        if (!passwordRegex.matches(input = password)) {
             _uiState.value = _uiState.value.copy(
                 errorMessage = "Password must contain a number and a special character"
             )

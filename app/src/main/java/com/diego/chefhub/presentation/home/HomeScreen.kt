@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -13,8 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.diego.chefhub.scaffold.MyHomeTopAppBar
 import com.diego.chefhub.scaffold.MyNavigationBottomBar
-import com.diego.chefhub.ui.theme.Light_Black
-import com.diego.chefhub.ui.theme.White
 
 @Composable
 fun HomeScreen(
@@ -38,7 +37,7 @@ fun HomeScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(Light_Black)
+                .background(color = MaterialTheme.colorScheme.secondary)
         ) {
             HomeContent(navigateToRecipe)
         }
@@ -52,6 +51,6 @@ private fun HomeContent(navigateToRecipe: () -> Unit) {
         verticalArrangement = Arrangement.Center,
         modifier = Modifier.fillMaxSize()
     ) {
-        Text("Home screen", color = White)
+        Text(text = "Home screen", color = MaterialTheme.colorScheme.onBackground)
     }
 }

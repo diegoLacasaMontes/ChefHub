@@ -1,7 +1,6 @@
 package com.diego.chefhub.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -13,7 +12,6 @@ import com.diego.chefhub.presentation.login.LoginScreen
 import com.diego.chefhub.presentation.search.SearchScreen
 import com.diego.chefhub.presentation.settings.SettingsScreen
 import com.diego.chefhub.presentation.signup.SignupScreen
-import com.diego.chefhub.ui.AppViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 @Composable
@@ -34,7 +32,7 @@ fun AppNavigation() {
         composable(route = AppScreens.InitialScreen.route) {
             InitialScreen(
                 navigateToLogIn = { navController.navigate(AppScreens.LoginScreen.route) },
-                navigateToSignUp = { navController.navigate(AppScreens.SignupScreen.route) }
+                navigateToSignup = { navController.navigate(AppScreens.SignupScreen.route) }
             )
         }
         composable(route = AppScreens.LoginScreen.route) {
